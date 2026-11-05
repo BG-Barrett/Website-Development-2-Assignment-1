@@ -1,0 +1,327 @@
+---
+---
+
+<section class="section">
+  <div class="container">
+    <h1 class="heading-2 padding-block-end-10">Our Animals</h1>
+
+    <!-- form for adding a new animal -->
+    <form id="animal-form" class="animals__controls">
+      <input name="name" placeholder="Name" aria-label="Name" required />
+      <input
+        name="species"
+        placeholder="Species"
+        aria-label="Species"
+        required
+      />
+      <input
+        name="age"
+        type="number"
+        min="0"
+        placeholder="Age"
+        aria-label="Age"
+        required
+      />
+
+      <!-- radio buttons for choosing the animal's status -->
+      <fieldset class="animals__status-options">
+        <legend>Status</legend>
+
+        <label>
+          <input type="radio" name="status" value="In care" checked />
+          In care
+        </label>
+
+        <label>
+          <input type="radio" name="status" value="Rehabilitating" />
+          Rehabilitating
+        </label>
+
+        <label>
+          <input type="radio" name="status" value="Released" />
+          Released
+        </label>
+      </fieldset>
+      <button type="submit">Add animal</button>
+    </form>
+
+    <!-- search box and status filter -->
+    <div class="animals__controls">
+      <input
+        id="search"
+        placeholder="Search name or species"
+        aria-label="Search"
+      />
+      <select id="status-filter" aria-label="Filter by status">
+        <option>All</option>
+        <option>In care</option>
+        <option>Rehabilitating</option>
+        <option>Released</option>
+      </select>
+    </div>
+
+    <!-- filled in by the script with the count and average age -->
+    <p id="summary"></p>
+
+    <!-- filled in by the script with the animal cards -->
+    <ul class="animals__grid" id="animal-list"></ul>
+  </div>
+</section>
+
+<!-- javascript -->
+<script>
+  import animals from "../data/animals.json";
+
+  // element selectors
+  const list = document.querySelector("#animal-list");
+  const form = document.querySelector<HTMLFormElement>("#animal-form");
+  const searchInput = document.querySelector<HTMLInputElement>("#search");
+  const statusFilter =
+    document.querySelector<HTMLSelectElement>("#status-filter");
+  const summary = document.querySelector("#summary");
+
+  // stops the script if an element is missing
+  if (!list || !form || !searchInput || !statusFilter || !summary) {
+    throw new Error("A page element is missing");
+  }
+
+  // draws a card for each animal in the list it is given
+  const renderAnimals = (animalsToShow: typeof animals) => {
+    // clears the current cards
+    list.innerHTML = "";
+
+    // starts the age total at 0
+    let totalAge = 0;
+
+    animalsToShow.forEach((animal) => {
+      // adds this animal's age to the total
+      totalAge += animal.age;
+
+      // creates the card
+      const card = document.createElement("li");
+      card.className = "animals__card";
+
+      // creates the image
+      const image = document.createElement("img");
+      image.className = "animals__image";
+      image.src = animal.image;
+      image.alt = animal.alt;
+
+      // creates the name
+      const name = document.createElement("h2");
+      name.className = "animals__name";
+      name.textContent = animal.name;
+
+      // creates the species
+      const species = document.createElement("p");
+      species.className = "animals__species";
+      species.textContent = animal.species;
+
+      // creates the age
+      const age = document.createElement("p");
+      age.className = "animals__age";
+      age.textContent = `Age: ${animal.age}`;
+
+      // creates the status
+      const status = document.createElement("p");
+      status.className = "animals__status";
+      status.textContent = animal.status;
+
+      // creates the delete button
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = `Delete ${animal.name}`;
+      // on click, finds the animal by id, removes it and redraws the list
+      deleteButton.addEventListener("click", () => {
+        const index = animals.findIndex((item) => item.id === animal.id);
+        animals.splice(index, 1);
+        showAnimals();
+      });
+
+      // adds the card to the list, then the elements to the card
+      list.append(card);
+      card.append(image, name, species, age, status, deleteButton);
+    });
+
+    // uses "animal" for one result and "animals" for any other number
+    const animalWord = animalsToShow.length === 1 ? "animal" : "animals";
+
+    // shows the count and average age, or a message if the list is empty
+    summary.textContent = animalsToShow.length
+      ? `Showing ${animalsToShow.length} ${animalWord}, average age ${Math.round(totalAge / animalsToShow.length)}`
+      : "No animals match your search";
+  };
+
+  // works out which animals match, then draws them
+  const showAnimals = () => {
+    // trim removes extra spaces and toLowerCase makes capitals irrelevant
+    const searchText = searchInput.value.trim().toLowerCase();
+    const chosenStatus = statusFilter.value;
+
+    // filter creates a new array and leaves the original unchanged
+    const results = animals.filter((animal) => {
+      // checks whether the text appears in the name or species
+      const matchesText =
+        animal.name.toLowerCase().includes(searchText) ||
+        animal.species.toLowerCase().includes(searchText);
+
+      // "All" matches every animal, otherwise the status must be the same
+      const matchesStatus =
+        chosenStatus === "All" || animal.status === chosenStatus;
+
+      // keeps the animal only if both match
+      return matchesText && matchesStatus;
+    });
+
+    renderAnimals(results);
+  };
+
+  // updates the results on every keystroke and when the filter changes
+  searchInput.addEventListener("input", showAnimals);
+  statusFilter.addEventListener("change", showAnimals);
+
+  // adds a new animal when the form is submitted
+  form.addEventListener("submit", (event) => {
+    // stops the page reloading, which would lose the changes
+    event.preventDefault();
+
+    // collects the form values and removes extra spaces from the name
+    const data = new FormData(form);
+    const name = String(data.get("name")).trim();
+    // stops here if the name was only spaces
+    if (!name) return;
+
+    // creates the new animal and adds it to the array
+    animals.push({
+      id: Date.now(),
+      name: name,
+      species: String(data.get("species")).trim(),
+      age: Number(data.get("age")),
+      status: String(data.get("status")),
+      image: "/images/tanrica-animals-9809447_1920.png",
+      alt: `Placeholder image for ${name}`,
+    });
+
+    // clears the form and redraws the list
+    form.reset();
+    showAnimals();
+  });
+
+  // draws the cards when the page first loads
+  showAnimals();
+</script>
+
+<style lang="scss" is:global>
+  @use "../styles/abstracts" as *;
+
+  .animals {
+    // lets the cards sit in rows and wrap onto new lines
+    &__grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      list-style: none;
+    }
+
+    // each card starts at 250px wide and can grow to 21rem
+    &__card {
+      flex: 1 1 250px;
+      max-width: 21rem;
+    }
+
+    // keeps every image the same shape without stretching it
+    &__image {
+      border-radius: $border-radius-2;
+      aspect-ratio: 3 / 2;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    // animal name style
+    &__name {
+      font-size: 1.5rem;
+      margin-block-start: 0.75rem;
+      @include heading($font-size-500);
+    }
+
+    // species text style
+    &__species {
+      font-weight: $font-weight-bold;
+    }
+
+    // lays out the form and search rows
+    &__controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $animals-grid-gap;
+      margin-block-end: $size-8;
+
+      // input and dropdown styles
+      input,
+      select {
+        color: $form-input-color;
+        font-family: $form-input-font-family;
+        font-weight: $form-input-font-weight;
+        font-size: $form-input-font-size;
+        background-color: $form-input-background-color;
+        border: $form-input-border-default;
+        border-radius: $form-input-border-radius;
+        padding: $form-input-padding;
+
+        // changes the border when a field is selected
+        &:focus {
+          border: $form-input-border-focus;
+        }
+      }
+
+      // placeholder text style
+      input::placeholder {
+        color: $form-placeholder-color;
+        font-family: $form-placeholder-font-family;
+        font-weight: $form-placeholder-font-weight;
+        font-size: $form-placeholder-font-size;
+      }
+    }
+
+    // styles for the add and delete buttons
+    &__controls button,
+    &__card button {
+      cursor: pointer;
+      font-family: $button-font-family;
+      font-size: $button-font-size;
+      font-weight: $button-font-weight;
+      text-transform: $button-text-transform;
+      color: $button-primary-color;
+      background-color: $button-primary-background;
+      padding: $button-padding;
+      border: $button-border;
+      border-radius: $button-border-radius;
+
+      // changes the colours on hover and keyboard focus
+      &:is(:hover, :focus) {
+        color: $button-primary-color-hover;
+        background-color: $button-primary-background-hover;
+      }
+    }
+
+    // adds a gap above the delete button
+    &__card button {
+      margin-block-start: $size-3;
+    }
+
+    // lays out the status radio buttons in a row
+    &__status-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: $size-3;
+      border: 0;
+      padding: 0;
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: $size-2;
+      }
+    }
+  }
+</style>

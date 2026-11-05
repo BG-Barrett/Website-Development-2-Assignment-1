@@ -1,7 +1,5 @@
 ---
 import LogoLink from "./LogoLink.astro";
-
-const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
@@ -9,24 +7,38 @@ const year = new Date().getFullYear();
     <div class="site-footer__top">
       <div class="site-footer__brand flow">
         <LogoLink />
-        <p>Build your online presence</p>
+        <p>Help us help the world</p>
       </div>
 
       <nav aria-label="footer">
         <ul class="site-footer__links flex-group" role="list">
-          <li><a href="/">Home</a></li>
-          <li><a href="/articles">Articles</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/animals">Animals</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
         </ul>
       </nav>
     </div>
 
     <p class="site-footer__copyright">
-      &copy; {year} South East Web Design. All rights reserved.
+      &copy; <span id="footer-year"></span> Wild Welfare. All rights reserved.
     </p>
   </div>
 </footer>
+
+<script>
+  // shows the current year in the footer
+  const yearElement = document.querySelector("#footer-year");
+
+  if (yearElement) {
+    yearElement.textContent = String(new Date().getFullYear());
+  }
+</script>
 
 <style lang="scss">
   @use "../styles/abstracts" as *;

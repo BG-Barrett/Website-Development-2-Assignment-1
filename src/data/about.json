@@ -1,0 +1,30 @@
+{
+  "creator": {
+    "name": "Gavin Barrett",
+    "course": "Creative Computing",
+    "college": "SETU Waterford",
+    "startDate": "2025-09-01",
+    "bio": "I chose this course as I have an interest in computer science and also an interest in creative media created using computers. My favourite subjects so far are audio production and website development."
+  },
+  "background": "Wild Welfare is a fictional animal welfare charity. Each record in my JSON array holds an animal's id, name, species, age, care status, image and alt text. The animals and their details were invented for this assignment.",
+  "credits": [
+    { "subject": "Elephant", "photographer": "kikatani" },
+    { "subject": "Elephants", "photographer": "olivier_d" },
+    { "subject": "Lion", "photographer": "nickype" },
+    { "subject": "Lionesses", "photographer": "publicdomainpictures" },
+    { "subject": "Giraffe", "photographer": "andreasgoellner" },
+    { "subject": "Giraffe close-up", "photographer": "alexas_fotos" },
+    { "subject": "Zebra", "photographer": "wolfgang_hasselmann" },
+    { "subject": "Zebra", "photographer": "kowloon" },
+    { "subject": "Hippopotamus", "photographer": "christels" },
+    { "subject": "Rhino", "photographer": "matthew_stone" },
+    { "subject": "Monkey", "photographer": "seth0s" },
+    { "subject": "Fennec fox", "photographer": "storme22k" },
+    { "subject": "Buffalo", "photographer": "jurgen_bierlein" },
+    { "subject": "Warthog", "photographer": "wolfgang_hasselmann" },
+    { "subject": "Warthogs", "photographer": "xiserge" },
+    { "subject": "Antelope", "photographer": "wolfgang_hasselmann" },
+    { "subject": "Sea", "photographer": "lenzleberkern" },
+    { "subject": "Animals", "photographer": "tanrica" }
+  ]
+}

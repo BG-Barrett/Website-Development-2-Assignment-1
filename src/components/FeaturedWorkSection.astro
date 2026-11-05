@@ -2,9 +2,17 @@
 import FeaturedWork from "./FeaturedWork.astro";
 ---
 
-<section class="work section">
+<section class="featured-work section">
   <div class="container">
     <h2 class="heading-2 padding-block-end-10">Featured Images</h2>
     <FeaturedWork />
   </div>
 </section>
+
+<style lang="scss">
+  @use "../styles/abstracts/" as *;
+
+  .featured-work {
+    background-color: $featured-work-background-color;
+  }
+</style>
