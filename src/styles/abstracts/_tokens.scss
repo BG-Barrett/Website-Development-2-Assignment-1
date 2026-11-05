@@ -1,3 +1,4 @@
+// design tokens: named values for each part of the site, change one here to update it everywhere
 @use "colors" as *;
 @use "typography" as *;
 @use "sizes" as *;
@@ -104,13 +105,13 @@ $navigation-color-hover: $color-accent-700;
 $navigation-font-size: $font-size-500;
 $navigation-gap: $size-9;
 $navigation-link-text-decoration: none;
-$navigation-font-family: $body-font-family;
+$navigation-font-family: $font-family-accent;
 $navigation-font-weight: $body-font-weight;
 
 // site footer
 $footer-background-color: $color-accent-100;
 $footer-text-color: $color-primary-900;
-$footer-link-color: $color-neutral-100;
+$footer-link-color: $color-neutral-1000;
 $footer-link-color-hover: $color-primary-200;
 $footer-link-font-family: $font-family-accent;
 $footer-link-text-decoration: none;

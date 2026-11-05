@@ -1,8 +1,10 @@
 ---
+// large banner at the top of the home page
 import Button from "../components/Button.astro";
 ---
 
 <section class="hero">
+  <!-- decorative background image, so the alt is empty -->
   <img
     class="hero__image"
     src="/images/kikatani-elephant-111695_1920.jpg"
@@ -14,6 +16,7 @@ import Button from "../components/Button.astro";
       Wildlife protection and conservation is one of the greatest things we
       offer our planet.
     </p>
+    <!-- links to the other two pages -->
     <div class="hero__buttons flex-group mx-auto">
       <Button href="/animals" theme="primary">
         Animals
@@ -35,10 +38,12 @@ import Button from "../components/Button.astro";
     display: grid;
     text-align: center;
 
+    // places the image and content in the same grid cell so they overlap
     > * {
       grid-area: 1/1;
     }
 
+    // dims the image so the text is easier to read
     &__image {
       opacity: 0.4;
       width: 100%;
@@ -47,6 +52,7 @@ import Button from "../components/Button.astro";
       object-fit: cover;
     }
 
+    // centres the content and keeps it above the image
     &__content {
       font-size: $hero-content-font-size;
       color: $hero-text-color;

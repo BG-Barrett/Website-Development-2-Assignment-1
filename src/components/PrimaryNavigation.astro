@@ -1,9 +1,11 @@
 ---
+// navigation list: label describes it for screen readers
 const { label, theme = "default" } = Astro.props;
 ---
 
 <nav aria-label={label} data-type={theme}>
   <ul class="nav | flex-group">
+    <!-- the links are passed in from SiteHeader -->
     <slot />
   </ul>
 </nav>
@@ -11,6 +13,7 @@ const { label, theme = "default" } = Astro.props;
 <style lang="scss">
   @use "../styles/abstracts" as *;
   .nav {
+    // sets the gap used by the flex-group class
     --flex-column-gap: #{$navigation-gap};
 
     list-style: none;
@@ -18,6 +21,7 @@ const { label, theme = "default" } = Astro.props;
     font-weight: $navigation-font-weight;
     font-size: $navigation-font-size;
 
+    // :global is needed to style links passed in through the slot
     :global(a) {
       color: $navigation-color;
       text-decoration: $navigation-link-text-decoration;

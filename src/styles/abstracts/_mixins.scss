@@ -1,9 +1,11 @@
+// reusable blocks of styles
 @use "sass:meta";
 @use "sass:math";
 @use "sass:map";
 @use "breakpoints" as *;
 @use "tokens" as *;
 
+// media query: applies styles from a breakpoint name or a width and up
 @mixin mq($size) {
   @if map.has-key($breakpoints, $size) {
     $breakpoint: map-get($breakpoints, $size);
@@ -23,6 +25,7 @@
   }
 }
 
+// heading styles: takes a font size and an optional colour
 @mixin heading($fs, $color: $heading-color-default) {
   font-size: $fs;
   color: $color;

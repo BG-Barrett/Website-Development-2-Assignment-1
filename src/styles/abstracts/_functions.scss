@@ -1,8 +1,10 @@
+// helper functions that look up a value and give an error if it does not exist
 @use "sass:map";
 @use "colors" as *;
 @use "typography" as *;
 @use "sizes" as *;
 
+// gets a colour from the palette
 @function clr($color, $shade) {
   @if map.has-key($colors, $color, $shade) {
     @return map.get($colors, $color, $shade);
@@ -11,6 +13,7 @@
   }
 }
 
+// gets a font size
 @function fs($font-size) {
   @if map.has-key($font-sizes, $font-size) {
     @return map.get($font-sizes, $font-size);
@@ -19,6 +22,7 @@
   }
 }
 
+// gets a spacing size
 @function size($size) {
   @if map.has-key($sizes, $size) {
     @return map.get($sizes, $size);

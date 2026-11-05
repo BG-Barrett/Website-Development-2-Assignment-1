@@ -1,6 +1,8 @@
 ---
+// Our Work section on the home page
 import Card from "../components/Card.astro";
 
+// the content for each card
 const services = [
   {
     title: "Rescue",
@@ -27,6 +29,7 @@ const services = [
   <div class="services__content container text-center">
     <h2 class="heading-2 padding-block-end-10">Our Work</h2>
 
+    <!-- creates a card for each service -->
     <ul class="services__cards grid-auto-fit" role="list">
       {services.map((service) => (
         <Card El="li" TitleLevel="h3" title={service.title}>

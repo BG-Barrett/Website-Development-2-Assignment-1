@@ -1,6 +1,8 @@
 ---
+// reusable form: the fields it shows are chosen when it is used
 import Button from "../components/Button.astro";
 
+// every field the form can show
 const allFields = {
   name: {
     label: "Name",
@@ -36,12 +38,14 @@ const allFields = {
   },
 } as const;
 
+// the values this component accepts
 interface Props {
   show?: (keyof typeof allFields)[];
   buttonText?: string;
   idPrefix?: string;
 }
 
+// reads the values passed in, with defaults if none are given
 const {
   show = ["name", "email", "website", "phone"],
   buttonText = "Submit",
@@ -49,7 +53,8 @@ const {
 } = Astro.props;
 ---
 
-<form class="form" action="..." method="POST">
+<!-- creates a label and input for each field in show -->
+<form class="form" action="" method="POST">
   {show.map((fieldName) => {
     const field = allFields[fieldName];
     if (!field) return null;
@@ -73,9 +78,24 @@ const {
   <Button theme="primary">{buttonText}</Button>
 </form>
 
+<script>
+  // stops the page changing and thanks the user
+  const signupForm = document.querySelector<HTMLFormElement>(".form");
+  const signupButton = signupForm?.querySelector("button");
+
+  signupForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    signupForm.reset();
+    if (signupButton) {
+      signupButton.textContent = "Thanks for signing up!";
+    }
+  });
+</script>
+
 <style lang="scss">
   @use "../styles/abstracts/" as *;
 
+  // one column on small screens and two on medium screens and up
   .form {
     display: grid;
     gap: $grid-gap;
@@ -85,6 +105,7 @@ const {
       grid-template-columns: repeat(2, 1fr);
     }
 
+    // keeps each label directly above its input
     &__field {
       display: grid;
       gap: $form-group-spacing;
@@ -102,6 +123,7 @@ const {
       font-weight: $font-weight-default;
     }
 
+    // input styles, using the form tokens
     input {
       width: 100%;
       color: $form-input-color;
@@ -113,10 +135,12 @@ const {
       border-radius: $form-input-border-radius;
       padding: $form-input-padding;
 
+      // changes the border when a field is selected
       &:focus {
         border: $form-input-border-focus;
       }
 
+      // placeholder text style
       &::placeholder {
         color: $form-placeholder-color;
         font-family: $form-placeholder-font-family;

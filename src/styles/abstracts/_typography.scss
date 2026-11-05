@@ -1,9 +1,11 @@
+// font families, font sizes and font weights
 $-ff-sans: "Roboto", system-ui, sans-serif;
 $-ff-serif: "Roboto Slab", serif;
 
 $font-family-base: $-ff-sans;
 $font-family-accent: $-ff-serif;
 
+// font sizes for small screens and for large screens
 $font-sizes: (
   "small": (
     "900": 3.75rem,

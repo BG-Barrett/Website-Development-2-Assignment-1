@@ -1,13 +1,17 @@
+// spacing classes
 @use "../abstracts" as *;
 
+// vertical space around each page section
 .section {
   padding-block: $section-padding-block;
 }
 
+// centres an element horizontally
 .mx-auto {
   margin-inline: auto;
 }
 
+// creates margin and padding classes for every size
 @each $size-name, $size-value in $sizes {
   .margin {
     &-#{$size-name} {

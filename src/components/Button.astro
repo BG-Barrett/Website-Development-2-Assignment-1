@@ -1,5 +1,7 @@
 ---
+// reusable button: href is the link and theme is the colour style
 const { href, theme = "primary" } = Astro.props;
+// becomes a link if it has an href, otherwise a button
 const El = href ? "a" : "button";
 ---
 
@@ -10,6 +12,7 @@ const El = href ? "a" : "button";
 <style lang="scss">
   @use "../styles/abstracts" as *;
 
+  // styles shared by every button
   .button {
     display: inline-flex;
     justify-content: center;
@@ -25,6 +28,7 @@ const El = href ? "a" : "button";
     border-radius: $button-border-radius;
     transition: 275ms ease;
 
+    // solid main colour
     &[data-type="primary"] {
       background-color: $button-primary-background;
       color: $button-primary-color;
@@ -35,6 +39,7 @@ const El = href ? "a" : "button";
       }
     }
 
+    // solid accent colour
     &[data-type="accent"] {
       background-color: $button-accent-background;
       color: $button-accent-color;
@@ -45,6 +50,7 @@ const El = href ? "a" : "button";
       }
     }
 
+    // transparent with an outline
     &[data-type="outline"] {
       background-color: $transparent-button-background-color;
       outline: $transparent-button-outline;

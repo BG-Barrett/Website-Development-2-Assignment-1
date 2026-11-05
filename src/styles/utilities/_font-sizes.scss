@@ -1,3 +1,4 @@
+// creates a class for each font size
 @use "../abstracts" as *;
 
 @each $screen-size, $size-map in $font-sizes {

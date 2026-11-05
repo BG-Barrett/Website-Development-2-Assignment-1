@@ -1,5 +1,8 @@
 ---
+// footer shown on every page
 import LogoLink from "./LogoLink.astro";
+// gets the current year when the site is built
+const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
@@ -10,6 +13,7 @@ import LogoLink from "./LogoLink.astro";
         <p>Help us help the world</p>
       </div>
 
+      <!-- footer links -->
       <nav aria-label="footer">
         <ul class="site-footer__links flex-group" role="list">
           <li>
@@ -26,19 +30,10 @@ import LogoLink from "./LogoLink.astro";
     </div>
 
     <p class="site-footer__copyright">
-      &copy; <span id="footer-year"></span> Wild Welfare. All rights reserved.
+      &copy; {year} Wild Welfare. All rights reserved.
     </p>
   </div>
 </footer>
-
-<script>
-  // shows the current year in the footer
-  const yearElement = document.querySelector("#footer-year");
-
-  if (yearElement) {
-    yearElement.textContent = String(new Date().getFullYear());
-  }
-</script>
 
 <style lang="scss">
   @use "../styles/abstracts" as *;
@@ -48,6 +43,7 @@ import LogoLink from "./LogoLink.astro";
     color: $footer-text-color;
     padding-block: $size-12 $size-8;
 
+    // footer link styles, using the footer tokens
     a {
       color: $footer-link-color;
       text-decoration: $footer-link-text-decoration;
@@ -58,11 +54,13 @@ import LogoLink from "./LogoLink.astro";
       }
     }
 
+    // spaces out the top row and the copyright line
     &__inner {
       display: grid;
       gap: $size-10;
     }
 
+    // stacked on small screens, side by side on medium screens and up
     &__top {
       display: grid;
       gap: $size-8;
@@ -77,6 +75,7 @@ import LogoLink from "./LogoLink.astro";
       list-style: none;
     }
 
+    // smaller text with a line above it
     &__copyright {
       font-size: $font-size-300;
       padding-block-start: $size-6;

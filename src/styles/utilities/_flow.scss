@@ -1,3 +1,4 @@
+// adds space between each child, but not above the first one
 .flow > *:where(:not(:first-child)) {
   margin-top: var(--flow-spacer, 1em);
 }

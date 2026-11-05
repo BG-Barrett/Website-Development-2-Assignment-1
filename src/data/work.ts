@@ -1,3 +1,4 @@
+// the shape of each image in the gallery
 export interface WorkItem {
   src: string;
   alt: string;
@@ -5,6 +6,7 @@ export interface WorkItem {
   href?: string;
 }
 
+// the images for the Featured Images gallery
 export const work: WorkItem[] = [
   {
     src: "/images/kikatani-elephant-111695_1920.jpg",

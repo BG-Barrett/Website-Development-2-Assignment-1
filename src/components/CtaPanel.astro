@@ -1,7 +1,9 @@
 ---
+// panel with an image beside a form
 import Form from "../components/Form.astro";
 import type { ComponentProps } from "astro/types";
 
+// the values this component accepts
 interface Props {
   theme?: "primary" | "centered";
   src: string;
@@ -11,6 +13,7 @@ interface Props {
   idPrefix?: string;
 }
 
+// reads the values passed in, using primary as the default theme
 const { theme = "primary", src, alt, show, buttonText, idPrefix } = Astro.props;
 ---
 
@@ -28,6 +31,7 @@ const { theme = "primary", src, alt, show, buttonText, idPrefix } = Astro.props;
     --grid-gap: #{$size-10};
     border: $cta-panel-border;
     border-radius: $cta-panel-border-radius;
+    // keeps the image the same shape without stretching it
     &__image {
       width: 100%;
       aspect-ratio: 2 / 1;

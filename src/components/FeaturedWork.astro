@@ -1,14 +1,18 @@
 ---
+// image gallery, using the images listed in data/work.ts
 import { work } from "../data/work";
 
 interface Props {
   limit?: number;
 }
 
+// shows 7 images unless a different limit is passed in
 const { limit = 7 } = Astro.props;
+// takes the images from the start of the list
 const items = work.slice(0, limit);
 ---
 
+<!-- creates a list item for each image -->
 <ul class="work__grid" role="list">
   {items.map((item) => (
     <li class="work__item">
@@ -22,6 +26,7 @@ const items = work.slice(0, limit);
   @use "../styles/abstracts/" as *;
 
   .work {
+    // 2 columns on small screens and 4 on medium screens and up
     &__grid {
       display: grid;
       gap: $grid-gap;
@@ -44,6 +49,7 @@ const items = work.slice(0, limit);
       overflow: hidden;
     }
 
+    // makes the second image twice as tall
     &__item:nth-child(2) {
       grid-row: span 2;
       position: relative;
@@ -56,6 +62,7 @@ const items = work.slice(0, limit);
       aspect-ratio: auto;
     }
 
+    // zooms the image slightly on hover
     &__item:hover &__image {
       transform: scale(1.05);
     }

@@ -1,11 +1,14 @@
 ---
+// header shown on every page
 import Button from "../components/Button.astro";
 import LogoLink from "../components/LogoLink.astro";
 import PrimaryNavigation from "./PrimaryNavigation.astro";
+// where the skip link jumps to
 const { skipTo = "#main" } = Astro.props;
 ---
 
 <header class="site-header">
+  <!-- lets keyboard users skip past the navigation -->
   <a href={skipTo} class="skip-navigation">
     Skip to content
   </a>
@@ -14,6 +17,7 @@ const { skipTo = "#main" } = Astro.props;
     <div class="site-header__inner">
       <LogoLink />
       <div class="flex-group align-center">
+        <!-- main site links -->
         <PrimaryNavigation label="primary">
           <li>
             <a href="/">Home</a>
@@ -33,6 +37,7 @@ const { skipTo = "#main" } = Astro.props;
 <style lang="scss">
   @use "../styles/abstracts" as *;
 
+  // stays at the top of the screen when scrolling
   .site-header {
     position: sticky;
     top: 0;
@@ -42,6 +47,7 @@ const { skipTo = "#main" } = Astro.props;
     padding: $site-header-padding;
     border-bottom: $site-header-border-bottom;
 
+    // lines up the logo and navigation with Flexbox
     &__inner {
       display: flex;
       gap: $size-4;
@@ -54,6 +60,7 @@ const { skipTo = "#main" } = Astro.props;
     }
   }
 
+  // sits above the top of the page until it is focused
   .skip-navigation {
     position: absolute;
     transform: translateY(-100%);
@@ -73,6 +80,7 @@ const { skipTo = "#main" } = Astro.props;
       margin-inline-start: 1rem;
     }
 
+    // slides into view when reached with the keyboard
     &:focus {
       color: $skip-nav-color;
       background-color: $skip-nav-background-color;

@@ -80,6 +80,9 @@
     document.querySelector<HTMLSelectElement>("#status-filter");
   const summary = document.querySelector("#summary");
 
+  // returns "1 year" for one, or "5 years" for any other number
+  const formatAge = (age: number) => (age === 1 ? "1 year" : `${age} years`);
+
   // stops the script if an element is missing
   if (!list || !form || !searchInput || !statusFilter || !summary) {
     throw new Error("A page element is missing");
@@ -120,7 +123,7 @@
       // creates the age
       const age = document.createElement("p");
       age.className = "animals__age";
-      age.textContent = `Age: ${animal.age}`;
+      age.textContent = `Age: ${formatAge(animal.age)}`;
 
       // creates the status
       const status = document.createElement("p");

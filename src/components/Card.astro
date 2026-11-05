@@ -1,17 +1,21 @@
 ---
+// reusable card: El and TitleLevel set which HTML tags it uses
 const { El = "div", TitleLevel = "h2", title, theme = "default" } = Astro.props;
 ---
 
 <El class="card" data-type={theme}>
+  <!-- only shows the heading if a title is passed in -->
   {title && (
     <TitleLevel class="card__heading padding-block-end-2">{title}</TitleLevel>
   )}
+  <!-- the card's content goes here -->
   <slot />
 </El>
 
 <style lang="scss">
   @use "../styles/abstracts" as *;
 
+  // lays out the card's content with Flexbox
   .card {
     align-content: start;
     display: flex;
@@ -27,6 +31,7 @@ const { El = "div", TitleLevel = "h2", title, theme = "default" } = Astro.props;
     box-shadow: $card-shadow;
     border-radius: $card-border-radius;
 
+    // each child starts at 300px wide and shares any spare space
     & > * {
       flex: 1 1 300px;
     }

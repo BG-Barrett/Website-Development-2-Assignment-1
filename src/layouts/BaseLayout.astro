@@ -1,7 +1,9 @@
 ---
+// shared layout used by every page
 import BaseHead from "../components/BaseHead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+// each page passes in its own title
 const { title } = Astro.props;
 ---
 
@@ -11,6 +13,7 @@ const { title } = Astro.props;
   <body>
     <SiteHeader />
     <main id="main">
+      <!-- each page's content goes here -->
       <slot />
     </main>
     <SiteFooter />

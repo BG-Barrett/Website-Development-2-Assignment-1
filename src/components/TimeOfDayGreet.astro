@@ -1,0 +1,48 @@
+---
+---
+
+<!-- the script adds the time card inside this container -->
+<section class="time section">
+  <div class="container" id="container"></div>
+</section>
+
+<script>
+  // element selector
+  const container = document.querySelector("#container");
+
+  // returns the current time as text
+  const getTime = () => new Date().toLocaleTimeString();
+
+  // adds the time card to the page
+  container?.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="time__card"><h2 class="time__heading">Hello! The time is <span id="current-time">${getTime()}</span></h2></div>`,
+  );
+
+  // updates the time when the mouse moves over the card
+  const currentTime = document.querySelector("#current-time");
+  container?.addEventListener("mouseover", () => {
+    if (currentTime) {
+      currentTime.textContent = getTime();
+    }
+  });
+</script>
+
+<style lang="scss" is:global>
+  @use "../styles/abstracts/" as *;
+
+  // is:global is needed because the card is created by JavaScript
+  .time {
+    background-color: $color-accent-300;
+    // the time card
+    &__card {
+      font-size: $font-size-800;
+      text-align: center;
+      border-radius: $border-radius-2;
+    }
+    // the time card heading
+    &__heading {
+      @include heading($font-size-800);
+    }
+  }
+</style>

@@ -1,3 +1,4 @@
+// centres content and limits how wide it can get
 @use "../abstracts/" as *;
 
 .container {
@@ -8,6 +9,7 @@
   margin-inline: auto;
 }
 
+// other container widths
 .container[data-type="narrow"] {
   --max-width: #{$container-max-width-narrow};
 }

@@ -1,14 +1,18 @@
 ---
+// Home page: brings the home page sections together
 import Layout from "../layouts/BaseLayout.astro";
 import HeroSection from "../components/HeroSection.astro";
 import ServiceSection from "../components/ServiceSection.astro";
 import CtaSection from "../components/CtaSection.astro";
 import StatementSection from "../components/StatementSection.astro";
 import FeaturedWorkSection from "../components/FeaturedWorkSection.astro";
+import TimeOfDayGreet from "../components/TimeOfDayGreet.astro";
 ---
 
 <Layout title="Wild Welfare | Home">
+  <!-- the sections appear on the page in this order -->
   <HeroSection />
+  <TimeOfDayGreet />
   <ServiceSection />
   <StatementSection />
   <CtaSection />
